@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ex Back Guide - अपनी Ex को वापस पाएं और खुद को बेहतर बनाएं</title>
+    
+    <!-- Google Fonts for better Hindi typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hind:wght@300;400;600;700&family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- CSS Variables & Reset --- */
+        :root {
+            --primary: #2c3e50; /* Dark Blue */
+            --secondary: #e74c3c; /* Red */
+            --text-dark: #333333;
+            --text-light: #666666;
+            --bg-light: #f4f6f7;
+            --white: #ffffff;
+            --shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Hind', sans-serif; /* Hind is excellent for Hindi text */
+            color: var(--text-dark);
+            line-height: 1.6;
+            background-color: var(--white);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Poppins', sans-serif; /* Poppins for strong headings */
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        a { text-decoration: none; }
+        ul { list-style: none; }
+
+        /* --- Utility Classes --- */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .text-center { text-align: center; }
+        .highlight { color: var(--secondary); }
+        .mb-20 { margin-bottom: 20px; }
+        .mb-40 { margin-bottom: 40px; }
+
+        /* --- Animations --- */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4); }
+            50% { transform: scale(1.05); box-shadow: 0 10px 25px rgba(231, 76, 60, 0.6); }
+            100% { transform: scale(1); box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4); }
+        }
+
+        /* Scroll Reveal Classes */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- Buttons --- */
+        .btn {
+            display: inline-block;
+            padding: 15px 35px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            border: none;
+        }
+
+        .btn-primary {
+            background-color: var(--secondary);
+            color: white;
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4);
+        }
+
+        .btn-primary:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 120px 0;
+            text-align: center;
+        }
+
+        .hero h4 { animation: fadeInUp 0.8s ease-out forwards; opacity: 0; }
+        .hero h1 { animation: fadeInUp 0.8s ease-out 0.2s forwards; opacity: 0; }
+        .hero p { animation: fadeInUp 0.8s ease-out 0.4s forwards; opacity: 0; }
+        .hero-btn-wrapper { animation: fadeInUp 0.8s ease-out 0.6s forwards; opacity: 0; }
+        .hero .btn { animation: pulse 2s infinite 1s; }
+
+        .hero h1 { font-size: 2.5rem; margin-bottom: 15px; }
+        .hero p { font-size: 1.2rem; margin-bottom: 30px; max-width: 700px; margin-left: auto; margin-right: auto; opacity: 0.9; }
+
+        /* --- Pain Points Section --- */
+        .pain-points { padding: 80px 0; background-color: var(--white); }
+        .pain-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px; }
+        
+        .pain-card {
+            background: #fff;
+            padding: 30px;
+            border-left: 5px solid var(--secondary);
+            box-shadow: var(--shadow);
+            border-radius: 8px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .pain-card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,0.15); }
+        .pain-card h3 { margin-bottom: 10px; color: var(--primary); }
+
+        /* --- The Solution (Personality Dev) --- */
+        .solution { padding: 80px 0; background-color: var(--bg-light); }
+        .solution-content { display: flex; align-items: center; flex-wrap: wrap; gap: 40px; }
+        .solution-text { flex: 1; min-width: 300px; }
+        .solution-image { flex: 1; min-width: 300px; text-align: center; }
+        
+        /* Image Styling */
+        .solution-image img {
+            max-width: 80%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+        .solution-image img:hover { transform: scale(1.02); }
+
+        /* --- Features List --- */
+        .features { padding: 80px 0; }
+        .feature-list { list-style: none; max-width: 800px; margin: 0 auto; }
+        .feature-list li {
+            background: white;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            font-size: 1.1rem;
+            transition: transform 0.2s;
+        }
+        .feature-list li:hover { transform: translateX(10px); background: #fffdfd; }
+        .check-icon { color: #27ae60; margin-right: 15px; font-weight: bold; font-size: 1.4rem; }
+
+        /* --- Testimonials --- */
+        .testimonials { background-color: var(--primary); color: white; padding: 80px 0; }
+        .testimonial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 30px; }
+        .testimonial-card {
+            background: rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 10px;
+            font-style: italic;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .testimonial-author { margin-top: 15px; font-weight: bold; text-align: right; color: #f1c40f; }
+
+        /* --- Pricing/CTA --- */
+        .pricing { padding: 100px 0; text-align: center; background-color: var(--bg-light); }
+        .price-box {
+            background: white;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            border: 1px solid #eee;
+            position: relative;
+            overflow: hidden;
+        }
+        .price-box::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 5px;
+            background: var(--secondary);
+        }
+        .price-tag { font-size: 3.5rem; color: var(--secondary); font-weight: 700; margin: 20px 0; }
+        .original-price { text-decoration: line-through; color: #999; font-size: 1.5rem; }
+
+        /* --- Footer --- */
+        footer { background: #222; color: #aaa; text-align: center; padding: 30px 0; font-size: 0.9rem; }
+
+        /* --- Responsive Tweaks --- */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 1.8rem; }
+            .solution-content { flex-direction: column-reverse; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="container">
+            <h4 style="text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; color: #f1c40f;">The Ultimate Guide</h4>
+            <h1>क्या आप अपनी <span class="highlight">Ex-Girlfriend</span> को वापस पाना चाहते हैं?</h1>
+            <p>भीख मांगना या पीछे पड़ना बंद करें। अपनी <strong>Personality</strong> को निखारें और वह इंसान बनें जिसे वह खोना नहीं चाहेगी।</p>
+            <div class="hero-btn-wrapper">
+                <a href="https://superprofile.bio/vp/get-your-ex_back" target="_blank" class="btn btn-primary">ई-बुक अभी डाउनलोड करें</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- The Problem Section -->
+    <section class="pain-points">
+        <div class="container reveal">
+            <h2 class="text-center mb-40">ब्रेकअप के बाद ज्यादातर लड़के ये <span class="highlight">गलतियां</span> करते हैं</h2>
+            <div class="pain-grid">
+                <div class="pain-card">
+                    <h3>❌ Desperation (बेताबी)</h3>
+                    <p>उसे बार-बार कॉल या मैसेज करना। इससे आप जरूरतमंद (needy) लगते हैं और वह आपसे और दूर भागती है।</p>
+                </div>
+                <div class="pain-card">
+                    <h3>❌ अपना आत्म-सम्मान खोना</h3>
+                    <p>माफी मांगना, रोना और गिड़गिड़ाना। याद रखें, लड़कियां उन लड़कों को पसंद करती हैं जिनका Self-Respect ऊंचा होता है।</p>
+                </div>
+                <div class="pain-card">
+                    <h3>❌ खुद को भूल जाना</h3>
+                    <p>दुख में डूबकर अपनी सेहत, करियर और लुक्स पर ध्यान देना बंद कर देना। यह सबसे बड़ी गलती है।</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Solution Section -->
+    <section class="solution">
+        <div class="container reveal">
+            <div class="solution-content">
+                <div class="solution-text">
+                    <h2 class="mb-20">उन्हें वापस पाने का सही तरीका: <br><span class="highlight">Personality Development</span></h2>
+                    <p class="mb-20">हमारी ई-बुक <strong>"Ex Back & Better You"</strong> कोई जादू की छड़ी नहीं है। यह एक व्यावहारिक गाइड (Practical Guide) है जो मनोविज्ञान (Psychology) पर आधारित है।</p>
+                    <p class="mb-20">जब आप अपनी पर्सनालिटी बदलते हैं, तो न सिर्फ आप बेहतर महसूस करते हैं, बल्कि आप उनके लिए एक <strong>Mystery (रहस्य)</strong> बन जाते हैं।</p>
+                    <p><strong>आप सीखेंगे:</strong></p>
+                    <ul style="margin-top: 10px;">
+                        <li style="margin-bottom: 8px;">✅ अपनी खोई हुई वैल्यू वापस कैसे पाएं।</li>
+                        <li style="margin-bottom: 8px;">✅ "No Contact Rule" का सही इस्तेमाल।</li>
+                        <li style="margin-bottom: 8px;">✅ एक <strong>High Value Man</strong> कैसे बनें।</li>
+                    </ul>
+                </div>
+                <div class="solution-image">
+                    <!-- Image with Fallback -->
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjRnNz1zj_J5RRgtWwh73mbV1JiffX21YDMzq3yf9UJFP87Ontc_5jpSb_xCPhY5yp4QtN6Sfai_L1rIi6Pv-VLggl7zjlnzJJaW48OXUnkl48sxXLP-kbHf1ht_3XuqbzPgQfrHq21fbZW6qP1zdViLo1NtJQfQuR2J8JTGXmDBXxzqk20R3B69zalG1M/s320/ggg.png" alt="Ebook Cover" onerror="this.onerror=null; this.src='https://via.placeholder.com/400x600/2c3e50/ffffff?text=Ebook+Cover+Image';">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- What You Will Learn -->
+    <section class="features">
+        <div class="container reveal">
+            <h2 class="text-center mb-40">इस ई-बुक के अंदर आपको क्या मिलेगा?</h2>
+            <ul class="feature-list">
+                <li>
+                    <span class="check-icon">✓</span>
+                    <div>
+                        <strong>The No Contact Rule:</strong> कब तक दूर रहना है और इस समय का उपयोग खुद को बदलने में कैसे करना है।
+                    </div>
+                </li>
+                <li>
+                    <span class="check-icon">✓</span>
+                    <div>
+                        <strong>Alpha Mindset:</strong> अपनी मानसिकता (Mindset) को कैसे बदलें ताकि आप उनके पीछे नहीं, बल्कि वो आपके पीछे आएं।
+                    </div>
+                </li>
+                <li>
+                    <span class="check-icon">✓</span>
+                    <div>
+                        <strong>Personality Grooming:</strong> अपने लुक्स, ड्रेसिंग सेंस और बॉडी लैंग्वेज को कैसे सुधारें।
+                    </div>
+                </li>
+                <li>
+                    <span class="check-icon">✓</span>
+                    <div>
+                        <strong>Re-attraction Texting:</strong> बात दोबारा शुरू करने के लिए पहला मैसेज क्या और कब भेजना है।
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <div class="container reveal">
+            <h2 class="text-center mb-40">सफलता की कहानियां</h2>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <p>"मैने सब कुछ ट्राई किया था, लेकिन कुछ काम नहीं आया। इस किताब ने मुझे सिखाया कि पहले मुझे खुद को बदलना होगा। आज मेरी गर्लफ्रेंड वापस आ गई है।"</p>
+                    <div class="testimonial-author">- राहुल, दिल्ली</div>
+                </div>
+                <div class="testimonial-card">
+                    <p>"यह सिर्फ एक्स को वापस पाने की गाइड नहीं है, इसने मुझे एक बेहतर इंसान बना दिया। मेरा कॉन्फिडेंस अब सातवें आसमान पर है।"</p>
+                    <div class="testimonial-author">- अमित, मुंबई</div>
+                </div>
+                <div class="testimonial-card">
+                    <p>"Personality development वाले चैप्टर ने मेरी आँखें खोल दीं। मैंने वो गलतियां करना बंद कर दीं जो मैं पहले करता था।"</p>
+                    <div class="testimonial-author">- विकास, इंदौर</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing / Offer Section -->
+    <section class="pricing" id="offer">
+        <div class="container reveal">
+            <div class="price-box">
+                <h2 style="color: var(--primary);">Limited Time Offer</h2>
+                <p>अपनी लव लाइफ को बदलने का मौका न गंवाएं</p>
+                
+                <div class="original-price">₹499</div>
+                <div class="price-tag">₹99 <span style="font-size: 1rem; color: #555; font-weight: normal;">(सिर्फ आज के लिए)</span></div>
+                
+                <ul style="text-align: left; margin-bottom: 30px; color: #555;">
+                    <li style="margin-bottom: 10px;">✅ Instant PDF Download</li>
+                    <li style="margin-bottom: 10px;">✅ Lifetime Access</li>
+                    <li style="margin-bottom: 10px;">✅ Mobile Friendly Reading</li>
+                </ul>
+
+                <a href="https://superprofile.bio/vp/get-your-ex_back" target="_blank" class="btn btn-primary btn-pulse" style="width: 100%;">अभी डाउनलोड करें ➤</a>
+                <p style="margin-top: 15px; font-size: 0.8rem; color: #888;">Secure Payment | Instant Delivery</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 Ex Back Guide. All Rights Reserved.</p>
+            <p style="margin-top: 5px; opacity: 0.6;">Disclaimer: Results may vary. This guide helps in self-improvement and relationship dynamics.</p>
+        </div>
+    </footer>
+
+    <!-- Script for Scroll Animation -->
+    <script>
+        window.addEventListener('scroll', reveal);
+
+        function reveal() {
+            var reveals = document.querySelectorAll('.reveal');
+
+            for(var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var revealTop = reveals[i].getBoundingClientRect().top;
+                var revealPoint = 150;
+
+                if(revealTop < windowHeight - revealPoint) {
+                    reveals[i].classList.add('active');
+                }
+            }
+        }
+        
+        // Trigger once on load in case elements are already visible
+        reveal();
+    </script>
+
+</body>
+</html>
