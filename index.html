@@ -61,10 +61,22 @@
         .mb-20 { margin-bottom: 20px; }
         .mb-40 { margin-bottom: 40px; }
 
-        /* --- Animations --- */
+        /* --- Improved Animations --- */
         @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
+            from { opacity: 0; transform: translateY(40px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes popIn {
+            0% { opacity: 0; transform: scale(0.5); }
+            80% { transform: scale(1.05); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
         }
 
         @keyframes pulse {
@@ -73,17 +85,36 @@
             100% { transform: scale(1); box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4); }
         }
 
-        /* Scroll Reveal Classes */
-        .reveal {
+        /* Scroll Reveal Base */
+        .reveal-section {
             opacity: 0;
-            transform: translateY(50px);
-            transition: all 0.8s ease-out;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
         }
 
-        .reveal.active {
+        .reveal-section.active {
             opacity: 1;
             transform: translateY(0);
         }
+
+        /* Staggered Children Animation */
+        .stagger-child {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease-out;
+        }
+
+        .reveal-section.active .stagger-child {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Delays for Stagger Effect */
+        .reveal-section.active .stagger-child:nth-child(1) { transition-delay: 0.1s; }
+        .reveal-section.active .stagger-child:nth-child(2) { transition-delay: 0.2s; }
+        .reveal-section.active .stagger-child:nth-child(3) { transition-delay: 0.3s; }
+        .reveal-section.active .stagger-child:nth-child(4) { transition-delay: 0.4s; }
+        .reveal-section.active .stagger-child:nth-child(5) { transition-delay: 0.5s; }
 
         /* --- Buttons --- */
         .btn {
@@ -96,6 +127,8 @@
             transition: all 0.3s ease;
             text-align: center;
             border: none;
+            position: relative;
+            overflow: hidden;
         }
 
         .btn-primary {
@@ -106,27 +139,77 @@
 
         .btn-primary:hover {
             background-color: #c0392b;
-            transform: translateY(-2px);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(231, 76, 60, 0.6);
+        }
+
+        /* --- Top Banner --- */
+        .top-banner {
+            background-color: #ffeb3b; /* Bright Yellow for attention */
+            color: #333;
+            text-align: center;
+            padding: 12px 20px;
+            font-size: 1rem;
+            font-weight: 700;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            animation: slideDown 0.5s ease-out;
+        }
+
+        .top-banner span {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .top-banner a {
+            color: #c0392b;
+            background: rgba(255,255,255,0.9);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+            border: 1px solid #e74c3c;
+        }
+
+        .top-banner a:hover {
+            transform: scale(1.05);
+            background: #fff;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-100%); }
+            to { transform: translateY(0); }
         }
 
         /* --- Hero Section --- */
         .hero {
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url('https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
             background-size: cover;
             background-position: center;
             color: white;
-            padding: 120px 0;
+            padding: 140px 0 100px;
             text-align: center;
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
         }
 
-        .hero h4 { animation: fadeInUp 0.8s ease-out forwards; opacity: 0; }
-        .hero h1 { animation: fadeInUp 0.8s ease-out 0.2s forwards; opacity: 0; }
-        .hero p { animation: fadeInUp 0.8s ease-out 0.4s forwards; opacity: 0; }
-        .hero-btn-wrapper { animation: fadeInUp 0.8s ease-out 0.6s forwards; opacity: 0; }
-        .hero .btn { animation: pulse 2s infinite 1s; }
+        .hero h4 { animation: fadeInUp 1s ease-out forwards; opacity: 0; }
+        .hero h1 { animation: fadeInUp 1s ease-out 0.3s forwards; opacity: 0; }
+        .hero p { animation: fadeInUp 1s ease-out 0.6s forwards; opacity: 0; }
+        .hero-btn-wrapper { animation: popIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.9s forwards; opacity: 0; }
+        .hero .btn { animation: pulse 2s infinite 2s; }
 
-        .hero h1 { font-size: 2.5rem; margin-bottom: 15px; }
-        .hero p { font-size: 1.2rem; margin-bottom: 30px; max-width: 700px; margin-left: auto; margin-right: auto; opacity: 0.9; }
+        .hero h1 { font-size: 2.8rem; margin-bottom: 20px; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+        .hero p { font-size: 1.3rem; margin-bottom: 35px; max-width: 750px; margin-left: auto; margin-right: auto; opacity: 0.95; }
 
         /* --- Pain Points Section --- */
         .pain-points { padding: 80px 0; background-color: var(--white); }
@@ -134,59 +217,69 @@
         
         .pain-card {
             background: #fff;
-            padding: 30px;
-            border-left: 5px solid var(--secondary);
-            box-shadow: var(--shadow);
-            border-radius: 8px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            padding: 35px 30px;
+            border-top: 5px solid var(--secondary);
+            border-left: none;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            border-radius: 12px;
+            transition: all 0.4s ease;
         }
-        .pain-card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,0.15); }
-        .pain-card h3 { margin-bottom: 10px; color: var(--primary); }
+        .pain-card:hover { transform: translateY(-15px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        .pain-card h3 { margin-bottom: 15px; color: var(--primary); font-size: 1.3rem; }
 
         /* --- The Solution (Personality Dev) --- */
-        .solution { padding: 80px 0; background-color: var(--bg-light); }
-        .solution-content { display: flex; align-items: center; flex-wrap: wrap; gap: 40px; }
+        .solution { padding: 90px 0; background-color: var(--bg-light); position: relative; }
+        .solution-content { display: flex; align-items: center; flex-wrap: wrap; gap: 50px; }
         .solution-text { flex: 1; min-width: 300px; }
-        .solution-image { flex: 1; min-width: 300px; text-align: center; }
+        .solution-image { flex: 1; min-width: 300px; text-align: center; perspective: 1000px; }
         
         /* Image Styling */
         .solution-image img {
-            max-width: 80%;
+            max-width: 75%;
             height: auto;
-            border-radius: 10px;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
-            transition: transform 0.3s ease;
+            border-radius: 15px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+            transition: transform 0.5s ease;
+            animation: float 6s ease-in-out infinite;
         }
-        .solution-image img:hover { transform: scale(1.02); }
+        .solution-image img:hover { transform: rotateY(-5deg) scale(1.05); }
 
         /* --- Features List --- */
-        .features { padding: 80px 0; }
+        .features { padding: 90px 0; }
         .feature-list { list-style: none; max-width: 800px; margin: 0 auto; }
         .feature-list li {
             background: white;
-            padding: 20px;
-            margin-bottom: 15px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
             display: flex;
             align-items: center;
-            font-size: 1.1rem;
-            transition: transform 0.2s;
+            font-size: 1.15rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-left: 4px solid transparent;
         }
-        .feature-list li:hover { transform: translateX(10px); background: #fffdfd; }
-        .check-icon { color: #27ae60; margin-right: 15px; font-weight: bold; font-size: 1.4rem; }
+        .feature-list li:hover { 
+            transform: translateX(10px) scale(1.01); 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            border-left: 4px solid var(--secondary);
+        }
+        .check-icon { color: #27ae60; margin-right: 20px; font-weight: bold; font-size: 1.5rem; background: #eafaf1; padding: 5px 10px; border-radius: 50%; }
 
         /* --- Testimonials --- */
-        .testimonials { background-color: var(--primary); color: white; padding: 80px 0; }
-        .testimonial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 30px; }
+        .testimonials { background-color: var(--primary); color: white; padding: 100px 0; clip-path: polygon(0 10%, 100% 0, 100% 100%, 0 100%); margin-top: -50px; padding-top: 150px;}
+        .testimonial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 35px; margin-top: 40px; }
         .testimonial-card {
-            background: rgba(255,255,255,0.1);
-            padding: 30px;
-            border-radius: 10px;
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
+            padding: 35px;
+            border-radius: 15px;
             font-style: italic;
             border: 1px solid rgba(255,255,255,0.1);
+            transition: transform 0.3s;
         }
-        .testimonial-author { margin-top: 15px; font-weight: bold; text-align: right; color: #f1c40f; }
+        .testimonial-card:hover { transform: translateY(-5px); background: rgba(255,255,255,0.1); }
+        .testimonial-author { margin-top: 20px; font-weight: bold; text-align: right; color: #f1c40f; letter-spacing: 1px; }
 
         /* --- Pricing/CTA --- */
         .pricing { padding: 100px 0; text-align: center; background-color: var(--bg-light); }
@@ -194,38 +287,52 @@
             background: white;
             max-width: 500px;
             margin: 0 auto;
-            padding: 50px;
-            border-radius: 20px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
-            border: 1px solid #eee;
+            padding: 60px 40px;
+            border-radius: 25px;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.12);
+            border: 1px solid #fff;
             position: relative;
             overflow: hidden;
+            transition: transform 0.3s;
         }
+        .price-box:hover { transform: translateY(-5px); }
         .price-box::before {
             content: "";
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 5px;
+            top: 0; left: 0; width: 100%; height: 8px;
             background: var(--secondary);
         }
-        .price-tag { font-size: 3.5rem; color: var(--secondary); font-weight: 700; margin: 20px 0; }
-        .original-price { text-decoration: line-through; color: #999; font-size: 1.5rem; }
+        .price-tag { font-size: 4rem; color: var(--secondary); font-weight: 800; margin: 20px 0; line-height: 1; }
+        .original-price { text-decoration: line-through; color: #aaa; font-size: 1.6rem; margin-bottom: 5px; display: inline-block; }
+        .discount-badge { 
+            background: #27ae60; color: white; padding: 5px 15px; border-radius: 20px; font-size: 0.9rem; font-weight: bold; vertical-align: middle; margin-left: 10px;
+        }
 
         /* --- Footer --- */
-        footer { background: #222; color: #aaa; text-align: center; padding: 30px 0; font-size: 0.9rem; }
+        footer { background: #1a252f; color: #888; text-align: center; padding: 40px 0; font-size: 0.9rem; border-top: 1px solid #333; }
 
         /* --- Responsive Tweaks --- */
         @media (max-width: 768px) {
-            .hero h1 { font-size: 1.8rem; }
+            .hero h1 { font-size: 2rem; }
+            .hero { clip-path: none; padding-bottom: 60px; }
             .solution-content { flex-direction: column-reverse; }
+            .testimonials { clip-path: none; margin-top: 0; padding-top: 80px; }
+            .top-banner { font-size: 0.9rem; padding: 10px; }
         }
     </style>
 </head>
 <body>
 
+    <!-- Sticky Top Banner (ADDED) -->
+    <div class="top-banner">
+        <span>🔥 Limited Time Offer: Get 80% OFF Today!</span>
+        <a href="https://superprofile.bio/vp/get-your-ex_back" target="_blank">अभी लें</a>
+    </div>
+
     <!-- Hero Section -->
     <header class="hero">
         <div class="container">
-            <h4 style="text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; color: #f1c40f;">The Ultimate Guide</h4>
+            <h4 style="text-transform: uppercase; letter-spacing: 2px; margin-bottom: 15px; color: #f1c40f;">The Ultimate Guide</h4>
             <h1>क्या आप अपनी <span class="highlight">Ex-Girlfriend</span> को वापस पाना चाहते हैं?</h1>
             <p>भीख मांगना या पीछे पड़ना बंद करें। अपनी <strong>Personality</strong> को निखारें और वह इंसान बनें जिसे वह खोना नहीं चाहेगी।</p>
             <div class="hero-btn-wrapper">
@@ -236,18 +343,18 @@
 
     <!-- The Problem Section -->
     <section class="pain-points">
-        <div class="container reveal">
+        <div class="container reveal-section">
             <h2 class="text-center mb-40">ब्रेकअप के बाद ज्यादातर लड़के ये <span class="highlight">गलतियां</span> करते हैं</h2>
             <div class="pain-grid">
-                <div class="pain-card">
+                <div class="pain-card stagger-child">
                     <h3>❌ Desperation (बेताबी)</h3>
                     <p>उसे बार-बार कॉल या मैसेज करना। इससे आप जरूरतमंद (needy) लगते हैं और वह आपसे और दूर भागती है।</p>
                 </div>
-                <div class="pain-card">
+                <div class="pain-card stagger-child">
                     <h3>❌ अपना आत्म-सम्मान खोना</h3>
                     <p>माफी मांगना, रोना और गिड़गिड़ाना। याद रखें, लड़कियां उन लड़कों को पसंद करती हैं जिनका Self-Respect ऊंचा होता है।</p>
                 </div>
-                <div class="pain-card">
+                <div class="pain-card stagger-child">
                     <h3>❌ खुद को भूल जाना</h3>
                     <p>दुख में डूबकर अपनी सेहत, करियर और लुक्स पर ध्यान देना बंद कर देना। यह सबसे बड़ी गलती है।</p>
                 </div>
@@ -257,7 +364,7 @@
 
     <!-- The Solution Section -->
     <section class="solution">
-        <div class="container reveal">
+        <div class="container reveal-section">
             <div class="solution-content">
                 <div class="solution-text">
                     <h2 class="mb-20">उन्हें वापस पाने का सही तरीका: <br><span class="highlight">Personality Development</span></h2>
@@ -280,28 +387,28 @@
 
     <!-- What You Will Learn -->
     <section class="features">
-        <div class="container reveal">
+        <div class="container reveal-section">
             <h2 class="text-center mb-40">इस ई-बुक के अंदर आपको क्या मिलेगा?</h2>
             <ul class="feature-list">
-                <li>
+                <li class="stagger-child">
                     <span class="check-icon">✓</span>
                     <div>
                         <strong>The No Contact Rule:</strong> कब तक दूर रहना है और इस समय का उपयोग खुद को बदलने में कैसे करना है।
                     </div>
                 </li>
-                <li>
+                <li class="stagger-child">
                     <span class="check-icon">✓</span>
                     <div>
                         <strong>Alpha Mindset:</strong> अपनी मानसिकता (Mindset) को कैसे बदलें ताकि आप उनके पीछे नहीं, बल्कि वो आपके पीछे आएं।
                     </div>
                 </li>
-                <li>
+                <li class="stagger-child">
                     <span class="check-icon">✓</span>
                     <div>
                         <strong>Personality Grooming:</strong> अपने लुक्स, ड्रेसिंग सेंस और बॉडी लैंग्वेज को कैसे सुधारें।
                     </div>
                 </li>
-                <li>
+                <li class="stagger-child">
                     <span class="check-icon">✓</span>
                     <div>
                         <strong>Re-attraction Texting:</strong> बात दोबारा शुरू करने के लिए पहला मैसेज क्या और कब भेजना है।
@@ -313,18 +420,18 @@
 
     <!-- Testimonials -->
     <section class="testimonials">
-        <div class="container reveal">
+        <div class="container reveal-section">
             <h2 class="text-center mb-40">सफलता की कहानियां</h2>
             <div class="testimonial-grid">
-                <div class="testimonial-card">
+                <div class="testimonial-card stagger-child">
                     <p>"मैने सब कुछ ट्राई किया था, लेकिन कुछ काम नहीं आया। इस किताब ने मुझे सिखाया कि पहले मुझे खुद को बदलना होगा। आज मेरी गर्लफ्रेंड वापस आ गई है।"</p>
                     <div class="testimonial-author">- राहुल, दिल्ली</div>
                 </div>
-                <div class="testimonial-card">
+                <div class="testimonial-card stagger-child">
                     <p>"यह सिर्फ एक्स को वापस पाने की गाइड नहीं है, इसने मुझे एक बेहतर इंसान बना दिया। मेरा कॉन्फिडेंस अब सातवें आसमान पर है।"</p>
                     <div class="testimonial-author">- अमित, मुंबई</div>
                 </div>
-                <div class="testimonial-card">
+                <div class="testimonial-card stagger-child">
                     <p>"Personality development वाले चैप्टर ने मेरी आँखें खोल दीं। मैंने वो गलतियां करना बंद कर दीं जो मैं पहले करता था।"</p>
                     <div class="testimonial-author">- विकास, इंदौर</div>
                 </div>
@@ -334,13 +441,13 @@
 
     <!-- Pricing / Offer Section -->
     <section class="pricing" id="offer">
-        <div class="container reveal">
+        <div class="container reveal-section">
             <div class="price-box">
                 <h2 style="color: var(--primary);">Limited Time Offer</h2>
                 <p>अपनी लव लाइफ को बदलने का मौका न गंवाएं</p>
                 
-                <div class="original-price">₹499</div>
-                <div class="price-tag">₹99 <span style="font-size: 1rem; color: #555; font-weight: normal;">(सिर्फ आज के लिए)</span></div>
+                <div class="original-price">₹999</div><span class="discount-badge">80% OFF</span>
+                <div class="price-tag">₹199 <span style="font-size: 1rem; color: #555; font-weight: normal;">(सिर्फ आज के लिए)</span></div>
                 
                 <ul style="text-align: left; margin-bottom: 30px; color: #555;">
                     <li style="margin-bottom: 10px;">✅ Instant PDF Download</li>
@@ -348,7 +455,7 @@
                     <li style="margin-bottom: 10px;">✅ Mobile Friendly Reading</li>
                 </ul>
 
-                <a href="https://superprofile.bio/vp/get-your-ex_back" target="_blank" class="btn btn-primary btn-pulse" style="width: 100%;">अभी डाउनलोड करें ➤</a>
+                                <a href="https://superprofile.bio/vp/get-your-ex_back" target="_blank" class="btn btn-primary btn-pulse" style="width: 100%;">अभी डाउनलोड करें ➤</a>
                 <p style="margin-top: 15px; font-size: 0.8rem; color: #888;">Secure Payment | Instant Delivery</p>
             </div>
         </div>
@@ -362,26 +469,26 @@
         </div>
     </footer>
 
-    <!-- Script for Scroll Animation -->
+    <!-- Improved Script for Intersection Observer -->
     <script>
-        window.addEventListener('scroll', reveal);
+        // Use Intersection Observer for better performance
+        const observerOptions = {
+            threshold: 0.15 // Trigger when 15% of the element is visible
+        };
 
-        function reveal() {
-            var reveals = document.querySelectorAll('.reveal');
-
-            for(var i = 0; i < reveals.length; i++) {
-                var windowHeight = window.innerHeight;
-                var revealTop = reveals[i].getBoundingClientRect().top;
-                var revealPoint = 150;
-
-                if(revealTop < windowHeight - revealPoint) {
-                    reveals[i].classList.add('active');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    // Optional: Stop observing once revealed
+                    observer.unobserve(entry.target); 
                 }
-            }
-        }
-        
-        // Trigger once on load in case elements are already visible
-        reveal();
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal-section').forEach(section => {
+            observer.observe(section);
+        });
     </script>
 
 </body>
